@@ -1,7 +1,7 @@
 {
   "name": "@nrk/yr-maplibre-gl-js-scale",
   "description": "Helper function to create custom MapLibre GL JS ScaleControl",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "source": "src/index.js",
   "main": "./dist/index.cjs",
