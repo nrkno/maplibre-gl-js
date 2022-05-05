@@ -1,16 +1,30 @@
+import { Map } from 'maplibre-gl';
+
+export type ScaleUnit = 'nautical-miles' | 'miles' | 'feet' | 'kilometers' | 'meters';
+
+export type ScaleType = 'imperial' | 'metric' | 'nautical';
+
 /**
  * Get the ratio of a distance on the map to the corresponding distance on the ground.
  *
- * @param {Object} [options]
- * @param {number} [options.map] MapLibre map instance
- * @param {number} [options.maxWidth='100'] The maximum length of the scale control in pixels.
- *   A horizontal scale is imagined to be present at center of the map
- *   container with maximum length (Default) as 100px.
- *   Using spherical law of cosines approximation, the real distance is
- *   found between the two coordinates.
- * @param {string} [options.type='metric'] Unit of the distance (`'imperial'`, `'metric'` or `'nautical'`).
+ * A horizontal scale is imagined to be present at center of the map container with maximum length (Default) as 100px.
+ * Using spherical law of cosines approximation, the real distance is found between the two coordinates.
  */
-export function getScale({ map, type = "metric", maxWidth = 100 }) {
+export function getScale({
+  map,
+  type = "metric",
+  maxWidth = 100
+}: {
+  map: Map;
+  /**
+   * Unit of the distance (`'imperial'`, `'metric'` or `'nautical'`).
+   * 
+   * Default "metric"
+   */
+  type?: ScaleType;
+  /** The maximum length of the scale control in pixels */
+  maxWidth?: number;
+}) {
   const y = map.getContainer().clientHeight / 2;
   const left = map.unproject([0, y]);
   const right = map.unproject([maxWidth, y]);
@@ -36,11 +50,15 @@ export function getScale({ map, type = "metric", maxWidth = 100 }) {
   }
 }
 
-function calculateScale(maxDistance, unit) {
+function calculateScale(maxDistance: number, unit: ScaleUnit) {
   const distance = getRoundNum(maxDistance);
   const ratio = distance / maxDistance;
 
-  return { distance, ratio, unit };
+  return {
+    distance,
+    ratio,
+    unit
+  };
 }
 
 function getDecimalRoundNum(d) {

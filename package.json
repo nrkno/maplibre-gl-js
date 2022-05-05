@@ -3,7 +3,7 @@
   "description": "Helper function to create custom MapLibre GL JS ScaleControl",
   "version": "2.0.0",
   "type": "module",
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.module.js",
   "types": "dist/index.d.ts",
@@ -17,8 +17,8 @@
     "dev": "microbundle watch",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {},
   "devDependencies": {
+    "maplibre-gl": "^2.1.9",
     "microbundle": "^0.14.2"
   },
   "files": [
